@@ -11,28 +11,39 @@
     });
 
     const { data: routes } = await useFetch('/hello');
-    const { data: inedexGet } = await useFetch('/api/index/get');
-    const { data: inedexPost } = await useFetch('/api/index/post', {
+    const { data: indexGet } = await useFetch('/api/index/get');
+    const { data: indexPost } = await useFetch('/api/index/post', {
         method: 'post',
-        body: { inedex: 'post' },
+        body: { index: 'post' },
     });
+
+    const { apiSecret } = useRuntimeConfig();
+    const { public: config } = useRuntimeConfig();
+    console.log('apiSecret ', apiSecret);
+    console.log('config', config);
+    console.log('import.meta', import.meta.server);
+
+    if (import.meta.server) {
+        console.log('API secret:', config.apiBase);
+    }
 
     const bodySubmit = await useFetch('/api/submit', {
         method: 'post',
         body: { test: 'bodySubmit' },
+        headers: {
+            Authorization: `Bearer ${apiSecret}`,
+        },
     });
 
     const query = await useFetch('/api/query');
 
     const { data } = await useFetch('/api/cookies');
-    console.log('cookies', data.value?.cookies);
+    // console.log('cookies', data.value?.cookies);
 
     const route = useRoute();
     const { focus } = useNuxtApp();
 
-    console.log(useNuxtApp());
-
-    console.log(focus);
+    // console.log('focus', focus);
 
     useHead({
         title: 'Index',
@@ -43,11 +54,11 @@
     });
 
     const hello = capitalize('hello');
-    console.log('hello', hello);
+    // console.log('hello', hello);
 
-    console.log('useRoute() =>', route);
+    // console.log('useRoute() =>', route);
     // console.log('useRouter() =>', useRouter());
-    // console.log('useRuntimeConfig() =>', useRuntimeConfig()); // API runtimeConfigнадає такі значення, як змінні середовища
+    // console.log('useRuntimeConfig() =>', useRuntimeConfig()); // API runtimeConfig надає такі значення, як змінні середовища
     // console.log('useAppConfig() =>', useAppConfig()); // використовується для надання загальнодоступних змінних, які можна визначити під час збирання
 </script>
 
@@ -73,12 +84,15 @@
         <pre>===2>>>>>>> {{ routes }}</pre>
         <br />
         <pre>===get>>>>>>> {{ get }}</pre>
+        <p id="comments">comments</p>
+
         <br />
         <pre>===post>>>>>>> {{ body }}</pre>
         <br />
-        <pre>===inedexGet>>>>>>> {{ inedexGet }}</pre>
+        <pre>===indexGet>>>>>>> {{ indexGet }}</pre>
+
         <br />
-        <pre>===inedexPost>>>>>>> {{ inedexPost }}</pre>
+        <pre>===indexPost>>>>>>> {{ indexPost }}</pre>
         <br />
         <pre>===bodySubmit>>>>>>> {{ bodySubmit }}</pre>
         <br />
@@ -86,7 +100,7 @@
     </section>
 </template>
 
-<style>
+<style scoped>
     @import url('~/assets/css/first.css');
 
     p {

@@ -4,7 +4,7 @@
     // definePageMeta({
     //     validate: async route => {
     //         console.log('route 1 ===>>>', route);
-    console.log('useRoute() =>', route);
+    // console.log('useRoute() =>', route);
     //         // Check if the id is made up of digits
     //         return typeof route.params.id === 'string' && /^\d+$/.test(route.params.id);
     //     },

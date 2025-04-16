@@ -1,5 +1,5 @@
-export default defineNuxtPlugin(nuxtApp => {
-    nuxtApp.vueApp.directive('focus', {
+export default defineNuxtPlugin(nuxt => {
+    nuxt.vueApp.directive('focus', {
         mounted(el) {
             console.log('✅ v-focus is triggered!');
             el.focus();

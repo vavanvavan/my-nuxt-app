@@ -3,8 +3,10 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
+    components: true,
 
-    ssr: true,
+    ssr: false,
+    // ssr: true,
 
     // У файлі nuxt.config можна налаштувати повністю введені зміни для кожного середовища
     $production: {
@@ -43,15 +45,21 @@ export default defineNuxtConfig({
         // runtimeConfig: використовується для надання приватних або загальнодоступних даних, які потрібно вказати після збірки за допомогою змінних середовища.
         // опції можна перевизначити за допомогою змінних середовища
         // Приватні ключі, доступні лише на сервері
-        apiSecret: '123',
+        apiSecret: 'secret', // Доступно лише на сервері
         // Ключі в межах public також доступні на стороні клієнта
         public: {
-            apiBase: '/api',
+            apiBase: '', // Доступно і на клієнті, і на сервері
         },
     },
 
     future: {
         compatibilityVersion: 4,
+    },
+
+    experimental: {
+        clientFallback: true,
+        crossOriginPrefetch: true,
+        componentIslands: 'local+remote', // Дозволяє локальні та віддалені острівці (islands)
     },
 
     // https://google-fonts.nuxtjs.org/getting-started/setup
@@ -72,7 +80,15 @@ export default defineNuxtConfig({
             },
         ],
         '@pinia/nuxt',
+        './modules/module',
+        'nuxt-auth-utils',
+        '@nuxt/image',
     ],
+
+    image: {
+        dir: 'assets/img', // Вказує, де шукати зображення
+        // provider: 'static', // Використовує прямий шлях без IPX
+    },
 
     plugins: ['~/plugins/directives/focus'],
 
@@ -138,18 +154,19 @@ export default defineNuxtConfig({
         ],
     },
 
-    nitro: {
-        storage: {
-            redis: {
-                driver: 'redis',
-                /* redis connector options */
-                port: 6379, // Redis port
-                host: '127.0.0.1', // Redis host
-                username: '', // needs Redis >= 6
-                password: '',
-                db: 0, // Defaults to 0
-                tls: {}, // tls/ssl
-            },
+    router: {
+        options: {
+            scrollBehaviorType: 'smooth',
         },
+    },
+
+    // допомагає відлагоджувати код у браузері та Node.js.
+    sourcemap: {
+        // для розробки використовувати можна явно використовувати true
+        server: true, // Увімкнути на сервері (Node.js)
+        client: true, // Увімкнути у браузері
+        // для прода використовувати false
+        // server: false, // Увімкнути на сервері (Node.js)
+        // client: false, // Увімкнути у браузері
     },
 });

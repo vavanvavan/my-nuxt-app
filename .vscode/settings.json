@@ -4,5 +4,35 @@
     "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "always"
-    }
+    },
+    "cSpell.words": [
+        "відлагоджувати",
+        "Відловлення",
+        "відправки",
+        "відправкою",
+        "відправці",
+        "ендпоінтах",
+        "кастомні",
+        "метатеги",
+        "метатегів",
+        "папка",
+        "прода",
+        "продакшені",
+        "рендерити",
+        "рендеритися",
+        "роути",
+        "тега",
+        "фавікон",
+        "cacheі",
+        "dedupe",
+        "midleware",
+        "nuxi",
+        "nuxt",
+        "nuxtjs",
+        "pinia",
+        "Prehydrate",
+        "Unhead",
+        "vavan"
+    ],
+    "cSpell.language": "en,uk"
 }

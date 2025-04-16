@@ -9,7 +9,7 @@
     //         return typeof route.params.id === 'string' && /^\d+$/.test(route.params.id);
     //     },
     // });
-    // pageTransition і layoutTransitio nможе бути вимкнено локально для певного маршруту:
+    // pageTransition і layoutTransition може бути вимкнено локально для певного маршруту:
     definePageMeta({
         pageTransition: false,
         layoutTransition: false,
@@ -19,7 +19,7 @@
     function enableCustomLayout() {
         setPageLayout('custom');
     }
-    function enableDefaulteLayout() {
+    function enableDefaultLayout() {
         setPageLayout('default');
     }
 </script>
@@ -29,7 +29,7 @@
         <p>number-two</p>
 
         <button @click="enableCustomLayout">Update layout</button>
-        <button @click="enableDefaulteLayout">Update layout</button>
+        <button @click="enableDefaultLayout">Update layout</button>
     </section>
 </template>
 

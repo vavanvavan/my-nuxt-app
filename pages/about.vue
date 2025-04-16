@@ -77,7 +77,7 @@
     // Це корисно для коду, який має бути виконано лише один раз, наприклад для реєстрації події або встановлення глобального стану.
     const websiteConfig = useState('config');
     callOnce(async () => {
-        console.log('This will only be logged once');
+        // console.log('This will only be logged once');
         websiteConfig.value = await $fetch('https://dummyjson.com/products/1');
     });
 
@@ -135,7 +135,7 @@
     </section>
 </template>
 
-<style>
+<style scoped>
     @import url('~/assets/css/second.css');
     p {
         color: blue;

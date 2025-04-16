@@ -10,16 +10,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/image": "^1.10.0",
+    "@nuxt/kit": "npm:@nuxt/kit-nightly@latest",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@pinia/nuxt": "^0.10.1",
     "animate.css": "^4.1.1",
-    "nuxt": "^3.16.0",
+    "nuxt": "^3.16.1",
+    "nuxt-auth-utils": "^0.5.17",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.5.13",
     "prettier": "^3.5.3",
-    "sass-embedded": "^1.85.1",
+    "sass-embedded": "^1.86.0",
     "vue": "^3.5.13"
   }
 }

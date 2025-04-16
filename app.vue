@@ -2,6 +2,10 @@
     const title = ref('Hello World');
     const description = ref('description');
 
+    const { message, politeness, set, polite, assertive } = useRouteAnnouncer();
+
+    console.log('message, politeness', message, politeness);
+
     // https://unhead.unjs.io/
     // useHead Компонована функція підтримує реактивне введення, дозволяючи вам керувати тегами голови програмно
     useHead({
@@ -54,26 +58,26 @@
     //     return data;
     // });
 
-    console.log(data.value, error.value);
+    // console.log(data.value, error.value);
     // ------------------------------- errors --------------------------------------
     const errors = useError(); // поверне глобальну помилку Nuxt, яка обробляється.
-    console.log('>>>>>>>>>>>>>>>>>>', errors.value || 'no errors');
+    // console.log('>>>>>>>>>>>>>>>>>>', errors.value || 'no errors');
 
     if (errors.value) {
-        console.error('An error occurred on pages:', useRoute().name, '===>>>', errors.value);
+        // console.error('An error occurred on pages:', useRoute().name, '===>>>', errors.value);
         // Ви можете використовувати `er
         //
         // ror.value` для відображення повідомлення про помилку або іншої інформації на UI.
     }
 
-    // const datas = ref(null);
+    // const data = ref(null);
 
     // const fetchData = async () => {
     //     try {
-    //         datas.value = await $fetch('/api/data'); // чи інший асинхронний запит
+    //         data.value = await $fetch('/api/data'); // чи інший асинхронний запит
     //     } catch (e: any) {
     //         console.log(e);
-    //         console.log(datas.value);
+    //         console.log(data.value);
 
     //         errors.value = e;
 
@@ -93,12 +97,18 @@
     // Компонент clearError очищає всі оброблені помилки.
     // clearError({ redirect: '/' })
 
+    const logSomeError = (error: any) => {
+        console.error('Зловлено помилку:', error);
+        // Тут можна, наприклад, відправити помилку в аналітику:
+        // sendErrorToServer(error);
+    };
+
     // ------------------------------- errors --------------------------------------
 
     // ------------------------------- composables --------------------------------------
     const foo = useFoo();
     const bar = useBar();
-    console.log('foo, bar', foo.value, bar.value);
+    // console.log('foo, bar', foo.value, bar.value);
 
     // ------------------------------- composables --------------------------------------
 </script>
@@ -120,7 +130,6 @@
         </Head>
 
         <Body>
-            <NuxtRouteAnnouncer />
             <header>
                 <nav>
                     <ul>
@@ -129,6 +138,8 @@
                         <li><NuxtLink to="/posts/1">Post 1</NuxtLink></li>
                         <li><NuxtLink to="/posts/2">Post 2</NuxtLink></li>
                         <li><NuxtLink to="/secret">secret</NuxtLink></li>
+                        <li><NuxtLink to="/parent">parent</NuxtLink></li>
+                        <li><NuxtLink to="/vue-test">vue-test</NuxtLink></li>
                     </ul>
                 </nav>
             </header>
@@ -137,8 +148,24 @@
 
             <!-- <NuxtLoadingIndicator> — це вбудований компонент у Nuxt 3, який показує індикатор завантаження при навігації між сторінками  -->
             <NuxtLoadingIndicator color="red" />
+
+            <!-- Компонент <NuxtRouteAnnouncer> додає прихований елемент із заголовком сторінки, щоб повідомляти про зміни маршруту для допоміжних технологій. -->
+            <NuxtRouteAnnouncer>
+                <template #default="{ message }">
+                    <p>{{ message }} was loaded.</p>
+                </template>
+            </NuxtRouteAnnouncer>
+
             <NuxtLayout>
-                <NuxtPage />
+                <div id="teleports"></div>
+                <!-- Контейнер для Teleport -->
+
+                <NuxtErrorBoundary @error="logSomeError">
+                    <NuxtPage :foobar="123" /><!-- Компонент <NuxtPage> потрібен для відображення сторінок, розташованих у каталозі pages/. -->
+                </NuxtErrorBoundary>
+
+                <div id="some-selector"></div>
+                <!-- Контейнер для Teleport -->
             </NuxtLayout>
         </Body>
     </Html>

@@ -6,7 +6,7 @@
         error: Object as () => NuxtError,
     });
 
-    console.log('error ===>>>>', props.error);
+    console.error('error ===>>>>', props.error);
 
     const handleError = () => clearError({ redirect: '/' });
 </script>
